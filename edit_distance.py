@@ -1,6 +1,46 @@
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
+
+"""
+  This file shows two different approaches to the minimum Edit Distance (MED) problem:
+  recursion and dynamic programming (DP).
+
+  As a quick little overview...
+    DP problems are often able to be solved recursively, but the running time is much 
+    smaller than recursive solutions and therefore more efficient.
+    This is due to a multitude of factors, such as a DP lookup table's dimensions, and 
+    how problems are reduced to its base cases differently based on their approach.
+
+  We start with the base cases:
+    x is empty string, y is empty string  --> ED = 0      (match)
+    x is empty string, y is not           --> ED = len(y) (insertion)
+    x is not empty string, y is           --> ED = len(x) (deletion)
+    x is string length 1, y is too        --> ED = hamming_distance(x, y) (match/substitution),
+  where the hamming distance in this situation is 1 if x != y.
+
+  We first determine a recursive strategy to solve this problem:
+    The result is based on the smallest MED between all the combinations of substrings 
+    of a source string x and a target string y.
+    min_ed_recursive(x, y) = min( 1 + min_ed_recursive(x[:-1], y)                                         # insertion/delete
+                                  1 + min_ed_recursive(x, y[:-1]),                                        # insertion/delete
+                                  ham_dist(x[len(x)-1], y[len(y)-1] + min_ed_recursive(x[:-1], y[:-1]))   # match/substitution )
+
+  Now we can analyze our recursive solution to see how we can build a lookup table for
+  the DP approach. If we make the 
+
+"""
+
+
+def ham_dist(a, b):
+  '''
+  @param a    source character
+  @param b    target character
+  @return     a == b
+  '''
+  return a != b
+
+
 def min_ed(i, j):
   '''
   DP Approach
@@ -30,18 +70,8 @@ def min_ed(i, j):
       sources.append(1 + lookup_table[row][col - 1])
       sources.append(ham_dist(x[row-1], y[col-1]) + lookup_table[row - 1][col - 1])
       lookup_table[row][col] = min(sources)
-
-  # pp.pprint(lookup_table)
+  pp.pprint(lookup_table)
   return lookup_table[i][j]
-
-
-def ham_dist(a, b):
-  '''
-  @param a    source character
-  @param b    target character
-  @return     a == b
-  '''
-  return a != b
 
 
 def min_ed_recursive(a, b):
