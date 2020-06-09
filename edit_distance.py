@@ -20,15 +20,24 @@ pp = pprint.PrettyPrinter(indent=4)
   where the hamming distance in this situation is 1 if x != y.
 
   We first determine a recursive strategy to solve this problem:
-    The result is based on the smallest MED between all the combinations of substrings 
+    The result is based on the smallest MED between all the combinations of prefixes 
     of a source string x and a target string y.
-    min_ed_recursive(x, y) = min( 1 + min_ed_recursive(x[:-1], y)                                         # insertion/delete
+    min_ed_recursive(x, y) = min( 1 + min_ed_recursive(x[:-1], y)                                         # insertion/delete 
                                   1 + min_ed_recursive(x, y[:-1]),                                        # insertion/delete
                                   ham_dist(x[len(x)-1], y[len(y)-1] + min_ed_recursive(x[:-1], y[:-1]))   # match/substitution )
+    (x[:-1], y), (x, y[:-1]), and (x[:-1], y[:-1]) represents all the possible combination of smaller prefixes.
 
   Now we can analyze our recursive solution to see how we can build a lookup table for
-  the DP approach. If we make the 
-
+    the DP approach. Let's make the table size m*n, where m = len(x) and n = len(y).
+  From here, the intuition is that we need to fill out the table from the uppermost, leftmost 
+    corner -- so both being prefixes of length 1. Therefore, the answer we're looking for, 
+    which would be the value at lookup_table[len(x)-1][len(y)-1], the values of the cells above, 
+    to the left of, and to the upper left of it.
+  
+  With this understanding, we can write code that iterates through a double array of size m*n with 
+    a nested for loop, and initialize the 0th row and columns with base case values. Then, we can 
+    populate the table's values in order and finally reach the desired answer, the last cell to be 
+    filled.
 """
 
 
