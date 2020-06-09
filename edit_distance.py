@@ -60,13 +60,6 @@ def min_ed(i, j):
   @param j    index for target string y
   @return     the edit distance from x[0..i] to y[0..j]
   '''
-  if not x and not y:
-    return 0
-  elif not x and len(y) != 0:
-    return len(y)
-  elif len(x) != 0 and not y:
-    return len(x)
-
   lookup_table = [[0 for _ in range(0, j + 1)] for _ in range(0, i + 1)] 
   # populate the 0th row and column padding
   for row in range(0, i+1):
