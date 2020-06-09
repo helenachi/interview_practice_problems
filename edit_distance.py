@@ -38,6 +38,9 @@ pp = pprint.PrettyPrinter(indent=4)
     a nested for loop, and initialize the 0th row and columns with base case values. Then, we can 
     populate the table's values in order and finally reach the desired answer, the last cell to be 
     filled.
+
+  The DP approach here is looking at smaller and smaller prefixes. Another valid method is to check 
+  smaller and smaller suffixes.
 """
 
 
