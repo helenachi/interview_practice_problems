@@ -39,6 +39,7 @@ def quickselect(array, k):
     else:
       return quickselect(array[index + 1:], k - index)
 
+
 array = [4, 0, 2, -1, 3]
 array_cp = [4, 0, 2, -1, 3]
 print(array)

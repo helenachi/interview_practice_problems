@@ -47,7 +47,8 @@ def oddEven(str):
 #
 
 def sign_flipper(arr):
-    return []
+    # what do with 0**********
+    return [elem * -1 for elem in arr]
 
 # Intersect Sum
 #
@@ -64,7 +65,22 @@ def sign_flipper(arr):
 #    7
 #
 def intersect_sum(ary1, ary2):
-    pass
+    # a = [1, 2, 3, 3, 4]
+    # b = [3, 4, 5, 6, 8, 10, 12]
+    # smaller = a
+    # larger = b
+    # ---checking a[0] == 1
+    # 1 in b? --> no; sum = 0
+    # 2 in b? --> no; sum = 0
+
+    if not ary1 or not ary2:
+        return None
+
+    result = []
+    for elem in ary1:
+        if elem in ary2 and elem not in result:
+            result.append(elem)
+    return sum(result)
 
 # Given a Dictionary with the type of fruit as the key
 # and the number of that type of fruit as its value, return the
@@ -81,7 +97,11 @@ def intersect_sum(ary1, ary2):
 # '1 Bananas'
 #
 def num_bananas(fruit_basket):
-    pass
+    # what if {"bananas": 0}*****
+    if "bananas" not in fruit_basket:
+        print("No Bananas")
+    else:
+        print(str(fruit_basket["bananas"]) + " Bananas")
 
 # Given a string, return whether it has repeating letters or not.
 # If the word is repeating, return the max number or repeating letters.
@@ -95,7 +115,18 @@ def num_bananas(fruit_basket):
 # 4
 #
 def repeating(string):
-    pass
+    lookup = {}
+    for c_char in string:
+        if c_char not in lookup:
+            lookup[c_char] = 1
+        else:
+            lookup[c_char] += 1
+    c_max = 0
+    for key in lookup:
+        if lookup[key] > c_max:
+            c_max = lookup[key]
+
+    return c_max
 
 # Given an integer N, print a triangle that is height N.
 #
@@ -109,8 +140,13 @@ def repeating(string):
 #  ****
 #
 def triangle(input):
-    pass
-
+    stars = ""
+    for i in range(input):
+        for _ in range(input-i-1):
+            print(" ", end="")
+        stars = stars + "*"
+        print(stars)
+    
 # Given an integer N, print the Fibonacci series up to its Nth term.
 #
 # Ex INPUT:
@@ -120,7 +156,12 @@ def triangle(input):
 # 1,1,2,3,5,8,13,21
 #
 def fibonacci(input):
-    pass
+    lookup = [0 for i in range(input)]
+    lookup[0] = 1
+    lookup[1] = 1
+    for i in range(2, input):
+        lookup[i] = lookup[i - 1] + lookup[i - 2]
+    return lookup[input - 1]
 
 # Given a 2d array, flatten the array.
 #
@@ -131,7 +172,11 @@ def fibonacci(input):
 # [1,2,3,4,5,6,7,8,9,10]
 #
 def flatten(input):
-    pass
+    result = []
+    for row in input:
+        for elem in row:
+            result.append(elem)
+    return result
 
 # Given a 2d NxN matrix, traverse the structure in a spiral and return an array
 # representing the traversed values in order.
@@ -147,7 +192,27 @@ def flatten(input):
 # [a,b,c,d,e,j,o,t,y,x,w,v,u,p,k,f,g,h,i,n,s,r,q,l,m]
 #
 def spiralMatrix(input):
-    pass
+    halfway = (int)(len(input) / 2) + 1
+    result = []
+    for i in range(halfway):
+        my_append(input, i, result)
+    return result
+
+def my_append(input, ith, result):
+    N = len(input)
+    if N % 2 == 1 and ith == (int)(N / 2):
+        result.append(input[ith][ith])
+    else:
+        stop = N - ith - 1
+        for j in range(ith, stop):
+            result.append(input[ith][j])
+        for i in range(ith, stop):
+            result.append(input[i][stop])
+        for j in range(stop, ith, -1):
+            result.append(input[stop][j])
+        for i in range(stop, ith, -1):
+            result.append(input[i][ith])
+
 
 """
 Given a string in a way formatted below, find the number of <name>'s
@@ -195,3 +260,24 @@ Jill is not friends with James, so we return 1 (1 friends of friends that are no
 """
 def missing_friends(name, graph):
     pass
+
+
+
+
+
+
+
+# def brewster_flatten(x):
+#     def flat(xs, acc, i, lim):
+#         if i == lim:
+#             return acc
+#         else:
+#             return flat(xs, acc+xs[i], i+1, lim)
+#     return flat(x, [], 0, len(x))
+
+# def brewster_spiralMatrix(matrix):
+#     def f(n, o):
+#         a = list(n*[0]) + list(range(1, n)) + list((n-2)*[n-1]) + list(reversed(range(1, n)))
+#         b = a[n-1:] + a[:n-1]
+#         return list(map(lambda r, c: matrix[r+o][c+o], a, b))
+#     return brewster_flatten([f(n, o) for (n, o) in zip(range(len(matrix), 0, -2), range(len(matrix)))])
