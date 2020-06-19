@@ -3,6 +3,25 @@ Helena Chi - Whipser.ai Coding Exercise
 June 2020
 """
 
+"""
+Suggestions for Improvement
+1. spacing
+2. total += product is just a dot product
+3. run pylint or black
+4. don't use list.copy()
+5. explain your convolve approach
+6. time and space complexity
+7. more extensive testing / separate testing program
+8. making classes/modules
+9. wrapping main in __main__
+10. global variables should be all caps
+11. readme for how to run program.
+12. precondition
+13. dependencies (python vresion, etc)
+14. include comparison with np.convolve()
+15. EXTRA write in all valid languages and compare
+16. Consolidate get larger/smaller array methods
+"""
 
 import numpy as np
 
