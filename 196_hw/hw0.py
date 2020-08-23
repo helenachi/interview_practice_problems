@@ -19,6 +19,7 @@
 def reverse_string(my_str):
     print(my_str[::-1])
 
+
 # Odd Even
 #
 # Given a string, print "odd" if there are an odd number of characters and "even" if there are an even number of characters
@@ -31,6 +32,7 @@ def reverse_string(my_str):
 #
 def oddEven(str):
     print("even" if len(str) % 2 == 0 else "odd")
+
 
 # Sign Flipper
 #
@@ -46,9 +48,11 @@ def oddEven(str):
 #    [-1, 2, -3]
 #
 
+
 def sign_flipper(arr):
     # what do with 0**********
     return [elem * -1 for elem in arr]
+
 
 # Intersect Sum
 #
@@ -82,6 +86,7 @@ def intersect_sum(ary1, ary2):
             result.append(elem)
     return sum(result)
 
+
 # Given a Dictionary with the type of fruit as the key
 # and the number of that type of fruit as its value, return the
 # number of bananas as a String. Ex. "5 Bananas"
@@ -102,6 +107,7 @@ def num_bananas(fruit_basket):
         print("No Bananas")
     else:
         print(str(fruit_basket["bananas"]) + " Bananas")
+
 
 # Given a string, return whether it has repeating letters or not.
 # If the word is repeating, return the max number or repeating letters.
@@ -128,6 +134,7 @@ def repeating(string):
 
     return c_max
 
+
 # Given an integer N, print a triangle that is height N.
 #
 # Ex INPUT:
@@ -142,11 +149,12 @@ def repeating(string):
 def triangle(input):
     stars = ""
     for i in range(input):
-        for _ in range(input-i-1):
+        for _ in range(input - i - 1):
             print(" ", end="")
         stars = stars + "*"
         print(stars)
-    
+
+
 # Given an integer N, print the Fibonacci series up to its Nth term.
 #
 # Ex INPUT:
@@ -163,6 +171,7 @@ def fibonacci(input):
         lookup[i] = lookup[i - 1] + lookup[i - 2]
     return lookup[input - 1]
 
+
 # Given a 2d array, flatten the array.
 #
 # Ex INPUT:
@@ -177,6 +186,7 @@ def flatten(input):
         for elem in row:
             result.append(elem)
     return result
+
 
 # Given a 2d NxN matrix, traverse the structure in a spiral and return an array
 # representing the traversed values in order.
@@ -197,6 +207,7 @@ def spiralMatrix(input):
     for i in range(halfway):
         my_append(input, i, result)
     return result
+
 
 def my_append(input, ith, result):
     N = len(input)
@@ -258,13 +269,39 @@ James is friends with Jack, who are friends with James and Jill. However,
 Jill is not friends with James, so we return 1 (1 friends of friends that are not friends with James.)
 
 """
+
+
 def missing_friends(name, graph):
-    pass
+    friends_of = get_friends_dict(graph)
+    count = 0
+    for friend in friends_of[name]:
+        for f in friends_of[friend]:
+            if f in friends_of[name] or f == name:
+                continue
+            else:
+                count += 1
+    return count
 
 
-
-
-
+def get_friends_dict(graph):
+    d = {}
+    next_newline = graph.find("\n")
+    current_string = graph
+    run = True
+    while run:
+        first_space = current_string.find(" ")
+        next_newline = current_string.find("\n")
+        if next_newline == -1:
+            next_newline = len(current_string)
+            run = False
+        person = current_string[0:first_space]
+        persons_friends = current_string[first_space + 1 : next_newline].split(" ")
+        current_string = current_string[next_newline + 1 :]
+        # print("person: " + person)
+        # print(persons_friends)
+        d[person] = persons_friends
+    print(d)
+    return d
 
 
 # def brewster_flatten(x):

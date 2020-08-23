@@ -1,3 +1,4 @@
+import math
 ##############################################################################
 #
 #   HW1.py
@@ -48,7 +49,20 @@ def csvify(raw_str):
     CS,125,Fall16
     """
     # Your code goes here!
-    pass
+    separated = raw_str.split(" ")
+    print(separated)
+    result = ""
+    index = 0
+    for word in separated:
+        if word != "":
+            result = word
+            break
+        else:
+            index += 1
+    for word in separated[index + 1:]:
+        if word != "":
+            result += "," + word
+    return result
 
 
 ###############################################################################
@@ -88,7 +102,43 @@ def to_binary(num):
     111010110111100110100010101
     """
     # Your code goes here!
-    pass
+    lookup = {0: [0], 1: [1]}
+    l_to_m_sb = to_binary_helper(num, lookup)
+    result = ""
+    for i in l_to_m_sb[::-1]:
+        result += str(i)
+    return result
+
+# to_binary_helper
+#
+# RETURN a string representing the integer parameter in binary.
+#
+# Parameters
+# ----------
+# num : integer
+#   A positive integer
+# lookup: dict
+#   A lookup table of integer binary representations in LSB->MSB list
+#
+# Returns
+# -------
+# list
+#   List representation of the given integer, num, in binary form from LSB to MSB
+#
+def to_binary_helper(num, lookup):
+    if (num in lookup):
+        return lookup[num]
+    
+    length = int(math.log(num, 2))
+    result = [1 if i == length else 0 for i in range(length + 1)]
+
+    remainder = int(num - math.pow(2, length))
+    if (remainder > 0):
+        sub_length = int(math.log(remainder, 2))
+        result[:sub_length+1] = to_binary_helper(remainder, lookup)
+    
+    lookup[num] = result
+    return lookup[num]
 
 
 
@@ -125,7 +175,11 @@ def sum_list(arr):
     >>> print sum_list("4,4")
     8
     """
-    pass
+    iterable = arr.split(",")
+    total = 0
+    for i in iterable:
+        total += int(i)
+    return total
 
 
 ###############################################################################
@@ -167,7 +221,6 @@ def remove_given_str(remove_str, word):
     """
     # Your code goes here!
     pass
-
 
 
 ###############################################################################
@@ -314,6 +367,7 @@ def caesar_cipher(sentence, shifts):
     # Your code goes here!
     pass
 
+
 ###############################################################################
 # Mom and Dad
 #
@@ -366,8 +420,10 @@ def mom_and_dad(string):
     # Your code goes here!
     pass
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Students can test this just by running the script
     # With the -v argument, they can find out the ones they got wrong.
     import doctest
+
     doctest.testmod()

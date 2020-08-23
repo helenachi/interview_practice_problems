@@ -36,7 +36,13 @@ import hw0
 # test_input_10a = [["a","b","c","d","e"], ["f","g","h","i","j"], ["k","l","m","n","o"], ["p","q","r","s","t"], ["u","v","w","x","y"]]
 # test_input_10b = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 # test_input_10c = [[1, 2],[3, 4]]
-# print(hw0.spiralMatrix(test_input_10c))
-# print(hw0.brewster_spiralMatrix(test_input_10b))
+# print(hw0.spiralMatrix(test_input_10a))
+# print(hw0.brewster_spiralMatrix(test_input_10a))
 
-
+# test_input_11a = ("james", "james jack jill\njack jill james\njill jack james")
+# test_input_11b = (
+#     "james",
+#     "james jack\njack james jill bob\njill jack bob\nbob jill jack",
+# )
+# print(hw0.missing_friends(test_input_11a[0], test_input_11a[1]))
+# print(hw0.missing_friends(test_input_11b[0], test_input_11b[1]))
