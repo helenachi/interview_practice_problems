@@ -220,7 +220,12 @@ def remove_given_str(remove_str, word):
     Whie, I made an ie. !
     """
     # Your code goes here!
-    pass
+    length = len(remove_str)
+    start = word.lower().find(remove_str.lower())
+    while (start >= 0):
+        word = word[:start] + word[start+length:]
+        start = word.lower().find(remove_str.lower())
+    return word
 
 
 ###############################################################################
@@ -257,7 +262,21 @@ def to_int(arr):
     17
     """
     # Your code goes here!
-    pass
+    lsb_to_msb = get_lsb_to_msb(arr)
+    total = 0
+    for i,val in enumerate(lsb_to_msb):
+        if val == 1:
+            total += 2 ** i
+    return total
+
+def get_lsb_to_msb(arrstr):
+    lsb_to_msb = []
+    for val in arrstr.split(",")[::-1]:
+        if val == "true":
+            lsb_to_msb += [1]
+        elif val == "false":
+            lsb_to_msb += [0]
+    return lsb_to_msb
 
 
 ###############################################################################
@@ -305,7 +324,20 @@ def weave_carpet(width, height):
     XO
     """
     # Your code goes here!
-    pass
+    string = ""
+    for row in range(height):
+        for col in range(width):
+            string += x_or_o(row, col)
+        print(string)
+        string = ""
+
+def x_or_o(row, col):
+    status_i = row % 2
+    status_j = col % 2
+    if status_i == status_j:
+        return "X"
+    else:
+        return "O"
 
 
 ###############################################################################
@@ -365,7 +397,29 @@ def caesar_cipher(sentence, shifts):
     'If You Can Read This Please Send Help!'
     """
     # Your code goes here!
-    pass
+    original = get_original()
+    # print()
+    result = ""
+    for c in sentence:
+        char = c
+        if c in original.values():
+            key = get_key(original, c)
+            char = original[(key + shifts) % len(original)]
+        result += char
+    return result
+
+def get_original():
+    string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    original = {}
+    for ind,val in enumerate(string):
+        original[ind] = val
+    return original
+
+def get_key(dictionary, value):
+    for index,char in dictionary.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
+        if char == value:
+            return index
+    return None
 
 
 ###############################################################################
