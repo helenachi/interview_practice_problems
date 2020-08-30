@@ -40,17 +40,17 @@ def csvify(raw_str):
     """
     Removes whitespaces and replaces with commas
 
-    >>> print csvify('the quick  brown   fox\\njumped    over the  lazy   dog')
+    >>> print(csvify('the quick  brown   fox\\njumped    over the  lazy   dog'))
     the,quick,brown,fox
     jumped,over,the,lazy,dog
-    >>> print csvify('subject course   term\\nCS 196    Fall16\\nCS 125     Fall16')
+    >>> print(csvify('subject course   term\\nCS 196    Fall16\\nCS 125     Fall16'))
     subject,course,term
     CS,196,Fall16
     CS,125,Fall16
     """
     # Your code goes here!
     separated = raw_str.split(" ")
-    print(separated)
+    # print(separated)
     result = ""
     index = 0
     for word in separated:
@@ -96,9 +96,9 @@ def to_binary(num):
     """
     Represents an integer in binary as a string of 0's and 1's
 
-    >>> print to_binary(23)
+    >>> print(to_binary(23))
     10111
-    >>> print to_binary(123456789)
+    >>> print(to_binary(123456789))
     111010110111100110100010101
     """
     # Your code goes here!
@@ -170,15 +170,16 @@ def sum_list(arr):
     """
     Sums the list of strings into an int
 
-    >>> print sum_list("1,2,3,4")
+    >>> print(sum_list("1,2,3,4"))
     10
-    >>> print sum_list("4,4")
+    >>> print(sum_list("4,4"))
     8
     """
-    iterable = arr.split(",")
+    iterable = "".join(arr.split()).split(",")
     total = 0
     for i in iterable:
-        total += int(i)
+        if (int(i)):
+            total += int(i)
     return total
 
 
@@ -214,9 +215,9 @@ def remove_given_str(remove_str, word):
     """
     Removes remove_str from word
 
-    >>> print remove_given_str("H","Harry is hot in Hogwarts")
+    >>> print(remove_given_str("H","Harry is hot in Hogwarts"))
     arry is ot in ogwarts
-    >>> print remove_given_str("oops","Whoopsie, I made an oopsie. Oops!")
+    >>> print(remove_given_str("oops","Whoopsie, I made an oopsie. Oops!"))
     Whie, I made an ie. !
     """
     # Your code goes here!
@@ -256,9 +257,9 @@ def to_int(arr):
     """
     Converts a list of booleans into an integer
 
-    >>> print to_int("true,false,true,true")
+    >>> print(to_int("true,false,true,true"))
     11
-    >>> print to_int("true,false,false,false,true")
+    >>> print(to_int("true,false,false,false,true"))
     17
     """
     # Your code goes here!
@@ -416,7 +417,7 @@ def get_original():
     return original
 
 def get_key(dictionary, value):
-    for index,char in dictionary.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
+    for index,char in dictionary.items():
         if char == value:
             return index
     return None
@@ -472,7 +473,16 @@ def mom_and_dad(string):
     True
     """
     # Your code goes here!
-    pass
+    mom_count = 0
+    dad_count = 0
+    for i,char in enumerate(string[:-2]):
+        if char == "m":
+            if string[i:i+3] == "mom":
+                mom_count += 1
+        elif char == "d":
+            if string[i:i+3] == "dad":
+                dad_count += 1
+    return dad_count == mom_count
 
 
 if __name__ == "__main__":
